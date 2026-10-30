@@ -1,359 +1,58 @@
-# shopee-ai-video-creator
-<p align="center">
-  <img src="docs/images/frameweaver_banner.svg" width="880" alt="FrameWeaver — weave scenes, voices, and sound" />
-</p>
+# Shopee AI Video Creator
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/code-MIT-2563eb" alt="Code: MIT" /></a>
-  <img src="https://img.shields.io/badge/status-preview-f59e0b" alt="Preview release" />
-  <img src="https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white" alt="Python 3.12" />
-  <img src="https://img.shields.io/badge/Node.js-24-339933?logo=nodedotjs&logoColor=white" alt="Node.js 24" />
-  <img src="https://img.shields.io/badge/Chrome-MV3-4285F4?logo=googlechrome&logoColor=white" alt="Chrome Manifest V3" />
-</p>
+Công cụ tạo video quảng cáo sản phẩm cho Shopee bằng AI, giao diện tiếng Việt, thiết kế cho người không biết lập trình. Người dùng tải ảnh sản phẩm lên, hệ thống phân tích đặc điểm nhận diện, tạo 10 kịch bản quảng cáo dài 30 giây và dựng thành video MP4 dọc 9:16 với giọng đọc nữ tiếng Việt.
 
-<p align="center">
-  <a href="README.vi.md">Tiếng Việt</a> ·
-  <a href="#quick-start">Quick start</a> ·
-  <a href="#documentation">Documentation</a> ·
-  <a href="https://github.com/phucnguyentvp1/frameweaver/releases">Downloads</a> ·
-  <a href="https://github.com/phucnguyentvp1/frameweaver/issues">Report an issue</a>
-</p>
+## Trạng thái dự án
 
-# FrameWeaver
+- Cập nhật 2026-10-30: đang xây dựng. Ứng dụng chạy trong Muse với tên "Shopee AI Video Creator". Repository này lưu tài liệu dự án, mẫu kịch bản và kết quả kiểm thử.
+- Mọi con số về năng lực trong tài liệu này đều là số đã kiểm chứng bằng sản phẩm thật, không phải thông số quảng cáo.
 
-**A local video workspace for scenes, narration, audio, and timeline editing.**
+## Tính năng chính
 
-FrameWeaver brings a React dashboard, Python backend, and Chrome extension into
-one workflow. Plan scenes, reuse character references, generate through your own
-Google Flow session, prepare narration, and assemble clips with FFmpeg.
+1. Tải ảnh sản phẩm và video tham chiếu lên dự án.
+2. Phân tích sản phẩm tự động: đặc điểm nhận diện (Product Identity Lock), lợi ích bán hàng. Thông tin chưa xác minh được ghi rõ là chưa xác minh, không suy diễn, không bịa giá hay thông số.
+3. Tạo 10 kịch bản quảng cáo khác nhau, mỗi kịch bản 30 giây (6 cảnh × 5 giây), kèm lời thoại và chữ màn hình cho từng cảnh.
+4. Sản xuất video theo từng cảnh bằng khả năng tạo video của Muse: mọi cảnh dùng cùng một ảnh tham chiếu và cùng một khóa sản phẩm để hạn chế biến dạng sản phẩm giữa các cảnh. Cảnh nào tạo lỗi thì chỉ tạo lại cảnh đó.
+5. Giọng đọc nữ tiếng Việt: thời lượng từng câu được đo thật trước khi ghép để không bị cắt chữ. Phụ đề và chữ màn hình tiếng Việt có dấu đầy đủ.
+6. Ghép các cảnh thành MP4 dọc 9:16 dài 30 giây bằng FFmpeg; file hoàn chỉnh được kiểm chứng bằng cách đo thời lượng hình/tiếng và nhận dạng lại giọng đọc.
+7. Xem trước video, tải MP4 xuống, lưu lịch sử dự án để dùng lại.
 
-Developed and maintained by [phucnguyentvp1](https://github.com/phucnguyentvp1),
-FrameWeaver combines scene production with a broader editing workspace: layered
-timelines, media libraries, speech analysis, narration, subtitles, and saved exports.
-The project is currently available as a preview release.
+## Quy trình sử dụng
 
-## macOS desktop beta
+1. Tạo dự án mới và tải ảnh sản phẩm (có thể kèm video tham chiếu).
+2. Xem và chỉnh phần phân tích sản phẩm: đặc điểm nhận diện, lợi ích bán hàng, các mục chưa xác minh.
+3. Chọn một trong 10 kịch bản, sửa lời thoại hoặc chữ màn hình nếu cần.
+4. Bấm sản xuất: hệ thống tạo từng cảnh, đọc lời thoại, ghép thành video 30 giây.
+5. Xem trước, tải MP4 xuống hoặc tạo lại riêng cảnh chưa ưng ý.
 
-**[Download FrameWeaver 1.3.1 beta 4 for Mac](https://github.com/phucnguyentvp1/frameweaver/releases/tag/v1.3.1-beta.4)**
-— macOS 13 or later. Choose the installer for your Mac:
+## Giới hạn kỹ thuật đã kiểm chứng
 
-| Mac | Installer | Size |
-| --- | --- | --- |
-| Apple Silicon (M1 or later) | [arm64 DMG](https://github.com/phucnguyentvp1/frameweaver/releases/download/v1.3.1-beta.4/FrameWeaver-1.3.1-beta.4-macOS-arm64.dmg) | 239 MB |
-| Intel | [x64 DMG](https://github.com/phucnguyentvp1/frameweaver/releases/download/v1.3.1-beta.4/FrameWeaver-1.3.1-beta.4-macOS-x64.dmg) | 255 MB |
+- Clip do mô hình video tạo ra có độ phân giải 720×1280 và độ dài khoảng 10 giây; một video 30 giây được ghép từ 3 clip. Thông số 1080p không được hứa hẹn vì mô hình không xuất ra mức đó.
+- Tối đa 6 clip được tạo trong một lượt yêu cầu, vì vậy việc sản xuất video thực hiện theo từng kịch bản được chọn, không xuất cả 10 video cùng một lúc.
+- Không tồn tại API chính thức của Muse cho quy trình này (đã kiểm tra khi khởi tạo dự án). Công cụ hoạt động như một ứng dụng trong Muse; không dùng API giả lập và không dùng video mẫu thay cho video thật.
+- Chưa có công cụ tạo nhạc nền và hiệu ứng âm thanh độc lập: âm thanh nền, nếu dùng, được lấy từ chính clip (chỉ khi clip không chứa tiếng nói lạ) và luôn được thông báo rõ trong báo cáo sản xuất.
+- Tiếng nói lạ do mô hình video tự phát sinh trong clip luôn bị tắt; chỉ giọng đọc theo kịch bản được giữ lại.
 
-Both DMGs are Developer ID signed, Apple notarized, and stapled. Open one and drag
-FrameWeaver into Applications; Python and FFmpeg are included. Optional AI models
-and provider accounts are configured separately.
+## Định dạng kịch bản
 
-For Google Flow, download the **[Chrome extension ZIP (0.3.6, ~379 KB)](https://github.com/phucnguyentvp1/frameweaver/releases/download/v1.3.1-beta.4/FrameWeaver-1.3.1-beta.4-extension.zip)**,
-shared by both Mac editions. Extract it, open `chrome://extensions`, enable
-**Developer mode**, choose **Load unpacked**, and select the extracted `extension`
-folder. You can also get it from the app menu **Ứng dụng → Cài extension Google Flow…**.
-
-Both installers package the application snapshot from **20 October 2026**,
-including **one-click ChatGPT component installation**, **Reload interface**,
-**live extension status**, the **Google Flow connection check**, and **Muse gateway setup/autostart**. See the
-[beta 4 release guide](docs/releases/v1.3.1-beta.4-macos.md) for installation and
-verification details. The [older beta 3](https://github.com/phucnguyentvp1/frameweaver/releases/tag/v1.3.1-beta.3), [beta 2](https://github.com/phucnguyentvp1/frameweaver/releases/tag/v1.3.1-beta.2)
-and beta 1 remain available. Intel was tested through Rosetta, not on a physical Intel Mac.
-
-### ChatGPT setup without Terminal
-
-Open **Settings → ChatGPT**, install the optional component if it is missing,
-then **Sign in with ChatGPT**. The app downloads the pinned official OpenAI
-Codex CLI with SHA256 verification; no Node.js or administrator installation is
-needed. A separate **Test AI** button sends a small request using your account's
-allowance. Existing Codex installations take priority. See the
-[ChatGPT setup guide](docs/CHATGPT-DESKTOP.md).
-
-**Reload interface** is available in the top bar. Extension status also updates
-immediately after a connection check and refreshes automatically on reconnect.
-
-### Muse AI in both Mac editions
-
-Use Muse for **script planning, reference/scene images, and video from a starting
-image**. Open **Settings → Muse → Cài và khởi động Muse** to install and start
-its optional [muse2api gateway](https://github.com/crisng95/muse2api). The app saves
-the local key and can start the installed gateway on later launches. Status,
-cancel, restart/stop and logs are available in Settings; no Terminal or dashboard
-is needed for the normal setup. Install Chrome and connect your Muse session
-once in the app, then choose Muse for each Studio stage. Google Flow still uses
-the extension. This beta's new project screen still requires Flow connectivity.
-
-See the **[Muse setup guide](docs/MUSE.md)** ([Tiếng Việt](docs/MUSE.vi.md)).
-Provider model names may be gateway aliases; a text-token balance does not confirm
-image/video entitlement or cost. Narration still uses the existing TTS providers.
-
-**Source vs desktop:** the repository's source preview and automatic GitHub
-“Source code” downloads are separate from the packaged desktop snapshot. The
-source instructions below describe that preview; Muse instructions above apply
-to the **beta 4 desktop apps**. This documentation update does not add the desktop
-Muse or ChatGPT installer implementation to the source preview.
-
-## Creator showcase
-
-**YouTube Shorts. Reels. Illustrated stories. Stickman explainers. 2D characters — and more.**
-
-Turn a story into scenes, add narration and subtitles, then shape the result in
-the timeline. These demo previews were shared by the FrameWeaver maintainer.
-
-<table>
-  <tr>
-    <th width="33%">Illustrated moral stories</th>
-    <th width="33%">Stickman storytelling</th>
-    <th width="33%">2D family stories</th>
-  </tr>
-  <tr>
-    <td align="center" valign="top"><a href="docs/images/showcase/karma-story-short.png"><img src="docs/images/showcase/karma-story-short.png" width="220" alt="Vertical illustrated story with a turtle scene, title, and Vietnamese subtitles" /></a></td>
-    <td align="center" valign="top"><a href="docs/images/showcase/stickman-family-short.png"><img src="docs/images/showcase/stickman-family-short.png" width="245" alt="Stickman family story with a father, mother, child, and narration captions" /></a></td>
-    <td align="center" valign="top"><a href="docs/images/showcase/illustrated-family-short.png"><img src="docs/images/showcase/illustrated-family-short.png" width="245" alt="2D family story with an illustrated mother and child, title, and subtitles" /></a></td>
-  </tr>
-  <tr>
-    <td>Atmospheric illustrations, a story title, and timed narration.</td>
-    <td>Simple characters for everyday stories and explainers.</td>
-    <td>Character-led stories with coordinated captions and audio.</td>
-  </tr>
-</table>
-
-Explore the [demo and workspace gallery](docs/SHOWCASE.md) for full-size previews.
-
-## What you can do
-
-| Workspace | Capabilities |
-| --- | --- |
-| Scene production | Projects, characters, reference images, scene prompts, image/video generation queues, and stage monitoring |
-| Muse AI (desktop beta 4) | Script planning, reference/scene images, and image-to-video through an optional local muse2api gateway |
-| Browser bridge | Chrome Manifest V3 extension for requests made inside your signed-in Google Flow tab |
-| Story styles | Illustrated style library, stickman and 2D characters, favorites, custom image references, and reusable production templates |
-| Narration and subtitles | Narration scripts, SRT editing, voice selection, and optional local TTS integrations |
-| Speech analysis | Optional transcription and timing tools for preparing and refining spoken content |
-| Audio and editing | Music and effects libraries, audio mixing, captions, frame/layout controls, and FFmpeg export |
-| Timeline | Drag media onto tracks, reorder and trim clips, split at the playhead, add transitions, preview, and save exports |
-| Media management | Local media libraries, imported videos, reusable audio, and export history |
-| Agent workflows | Markdown `/fk-*` recipes for compatible coding agents and configurable CLI providers |
-| Interface languages | English, Vietnamese, Hindi, Indonesian, Chinese, Korean, and Japanese |
-
-Optional engines need their own dependencies and model downloads. AI generation
-uses your service account and applicable credits; this repository does not include
-Google Flow or Muse access, a paid AI subscription, or provider credentials.
-
-## Inside the workspace
-
-### Drag-and-drop timeline
-
-<a href="docs/images/showcase/timeline-editor.png"><img src="docs/images/showcase/timeline-editor.png" width="1040" alt="FrameWeaver editing workspace with a media library, vertical preview, and separate video, narration, subtitle, and music tracks" /></a>
-
-Bring video, narration, subtitles, music, and overlays together in one edit.
-Drag assets from the library onto tracks, move clips into place, split at the
-playhead, adjust the frame, and preview before exporting. The workspace includes
-audio ducking, undo/redo, autosave, and saved export history.
-
-### A visual library for your next story
-
-Choose a look before building the scenes: light or dark stickman styles, 2D
-characters, cinematic illustration, chibi, hand-drawn art, Vietnamese folk stories,
-and illustrated moral stories. Save favorites or add your own reference-based style.
-
-<details>
-  <summary><strong>Open the style library preview</strong></summary>
-  <p><a href="docs/images/showcase/style-library.png"><img src="docs/images/showcase/style-library.png" width="820" alt="FrameWeaver style library with stickman, 2D, cinematic, chibi, hand-drawn, folk story, and moral story presets" /></a></p>
-</details>
-
-<details>
-  <summary><strong>Open the dashboard and connection guide</strong></summary>
-  <p><img src="docs/images/frameweaver_dashboard.jpg" width="920" alt="FrameWeaver dashboard showing the setup guide and extension connection status" /></p>
-  <p>This earlier screenshot shows <strong>FrameWeaver 0.3.5</strong>; beta 4 includes extension <strong>0.3.6</strong>. See the <a href="docs/images/frameweaver_extension.jpg">extension UI preview</a>.</p>
-</details>
-
-## Quick start
-
-### 1. Install the prerequisites
-
-The packaging checks used **Python 3.12** and **Node.js 24**. You also need Chrome,
-FFmpeg, and ffprobe. Install those tools before proceeding.
-
-The commands below assume macOS or a Linux shell. Windows users can adapt them
-with WSL; a full Windows setup has not been verified for this preview.
-
-### 2. Clone and install the backend
-
-```sh
-git clone https://github.com/phucnguyentvp1/frameweaver.git
-cd frameweaver
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-cp .env.example .env
-```
-
-Create a project in the Google Flow interface. Copy its UUID from the project URL
-and set `FLOW_PROJECT_ID` in `.env`. Use your own credentials for any optional
-providers you enable.
-
-```sh
-set -a
-source .env
-set +a
-python -m agent.main
-```
-
-The backend reads shell environment variables; it does **not** load `.env`
-automatically. Leave this terminal running.
-
-### 3. Load the extension
-
-Open Chrome's extension manager, enable Developer mode, choose **Load unpacked**,
-and select this repository's `extension/` directory. Open
-[Google Flow](https://flow.google.com/), sign in, and leave the tab open.
-
-For a standalone extension download, extract the ZIP first and select the folder
-containing `manifest.json`. Keep one bridge enabled for the same backend. An
-extension loaded from another copy of the project will keep using that copy's
-files. See the [extension installation guide](extension/README.md).
-
-### 4. Start the dashboard
-
-In a second terminal:
-
-```sh
-cd frameweaver/dashboard
-npm ci
-npm run dev
-```
-
-Open **http://127.0.0.1:5173**. The backend uses port **8100** and the extension
-WebSocket bridge uses **9222**. Keep these services bound to localhost for a
-normal desktop installation.
-
-### 5. Check the connection
-
-```sh
-curl -s http://127.0.0.1:8100/health
-curl -s http://127.0.0.1:8100/api/flow/status
-```
-
-Before generation, the health response must show `extension_connected: true`.
-The Flow status should identify the `batch` transport and your project UUID.
-`flow_key_present: false` is expected for the current browser transport.
-
-## A typical workflow
-
-1. Create a local project and link your Google Flow project.
-2. Define recurring characters, locations, and props; generate all references first.
-3. Add scenes using action prompts and the relevant reference entities.
-4. Generate scene images, then video clips, through the request queue.
-5. Review the clips before any supported upscale operation.
-6. Prepare narration, subtitles, music, and timeline edits.
-7. Export a preview or final MP4 and download it.
-
-Use `POST /api/requests/batch` for bulk generation. The server handles concurrency
-and cooldowns. `/fk-*` recipes in [skills/](skills/README.md) describe the API
-workflow and its checks.
-
-## Architecture
+Mỗi kịch bản dùng một khối khóa sản phẩm dùng chung (GLOBAL VISUAL CONSISTENCY + PRODUCT IDENTITY LOCK) và các cảnh theo mẫu:
 
 ```text
-React dashboard (:5173) ── HTTP / WebSocket ── Python agent (:8100)
-                                                   │
-                                             SQLite + FFmpeg
-                                                   │
-                                          Extension bridge (:9222)
-                                                   │
-                                        Signed-in Google Flow tab
+CẢNH 1 (0–5s)
+Hình ảnh: <mô tả cảnh>
+Lời thoại: <câu thoại tiếng Việt>
+Chữ màn hình: <dòng chữ hiển thị>
 ```
 
-The application stores project data, generated media, and local settings on the
-machine running the backend. A source download contains code and bundled preview
-assets; each user configures their own browser session and optional providers.
+Khóa sản phẩm mô tả cố định: hình dáng, màu sắc, các chi tiết nhận diện không được thay đổi, vật liệu và kích thước (chỉ khi đã xác minh), cùng danh sách cấm (không thêm nút bấm, không đổi màu, không nhân đôi sản phẩm, không cơ chế điện nếu sản phẩm là cơ khí).
 
-## Configuration
+## Tham khảo và giấy phép
 
-| Variable | Purpose |
-| --- | --- |
-| `FLOW_PROJECT_ID` | UUID of the Google Flow project used by browser generation |
-| `API_HOST`, `API_PORT` | Backend bind address and port; defaults to `127.0.0.1:8100` |
-| `WS_HOST`, `WS_PORT` | Extension bridge bind address and port; defaults to `127.0.0.1:9222` |
-| `FLOW_ALLOW_DEGRADED` | Optional fallback for unsupported Veo reference/chaining modes; default `0` |
-| `ANTHROPIC_API_KEY`, `SUNO_API_KEY` | Optional provider credentials; leave unset unless needed |
-| `VITE_MODEL_CATALOG_URL` | Optional dashboard override for the public model-catalog JSON URL |
+- Quy trình làm việc tham khảo 26Flow — https://github.com/bynne2602/museflow (giấy phép GNU GPL v2). Dự án này viết mã và tài liệu mới hoàn toàn theo hướng clean-room: không sao chép mã nguồn GPL, không sửa và không ghi đè repository gốc.
+- Giấy phép của chính dự án này: chủ sở hữu sẽ quyết định và bổ sung file LICENSE sau.
 
-Existing `.flowkit/` paths, `FLOWKIT_*` settings, and `/fk-*` commands are retained
-for compatibility with the base implementation. See [BRANDING.md](BRANDING.md).
+## Cấu trúc repository
 
-## Preview status and known limitations
-
-- **Veo video upscale, Veo reference-to-video, and Veo start/end-frame chaining**
-  are marked unported on the migrated transport. Supported Omni modes and
-  explicitly enabled fallbacks have different behavior; consult
-  [the transport notes](docs/CAPTURE.md).
-- Generation depends on Google Flow's current browser behavior and your account.
-  Live generation has not been re-verified for this preview release.
-- External macOS volumes exposed AppleDouble (`._*`) discovery and modification-time
-  cache failures during packaging checks. For a macOS trial, use native APFS
-  working data and temporary directories. Packaging excludes metadata files but
-  does not repair all runtime filesystem assumptions.
-- TTS, speech analysis, and restoration engines are optional integrations with
-  separate installation, model, and licensing requirements.
-- Saved project titles and original uploaded filenames keep their user-provided
-  names. App-generated image/video export names use the `frameweaver-` prefix.
-
-Focused publication checks passed for backend download/editing/auth/package
-paths, the MV3 bootstrap test, and the dashboard production build. A clean full
-cross-platform test result is not claimed for this preview.
-
-## Documentation
-
-| Guide | Contents |
-| --- | --- |
-| [ChatGPT setup (desktop beta 4)](docs/CHATGPT-DESKTOP.md) | Install the optional component, sign in, test AI and refresh status |
-| [Muse AI (desktop beta 4)](docs/MUSE.md) | Gateway setup, account connection, supported stages, and limitations |
-| [Sharing and installation](docs/SHARING.md) | Environment setup, source archives, and distribution notes |
-| [Demo and workspace gallery](docs/SHOWCASE.md) | Creator examples, the timeline editor, style library, and dashboard |
-| [Technical reference](docs/REFERENCE.md) | Detailed API and workflow reference, including historical examples |
-| [Timeline editor](docs/TIMELINE_EDITOR.md) | Editing controls, save behavior, and export |
-| [Speech analysis](docs/speech-analysis.md) | Optional speech-analysis workflow |
-| [Kokoro](docs/kokoro-english.md) / [Qwen3](docs/qwen3-multilingual.md) | Optional narration engines |
-| [Export history](docs/EXPORT_HISTORY.md) | Managing saved exports and their dependencies |
-| [Agent workflows](skills/README.md) | `/fk-*` recipes and setup |
-| [Contributing](CONTRIBUTING.md) | Development checks and contribution guidance |
-| [Security](SECURITY.md) | Private vulnerability reporting |
-
-## Development
-
-```sh
-source .venv/bin/activate
-python -m pip install -r requirements.txt -r requirements-dev.txt
-python -m pytest tests/unit
-node --test tests/*.test.cjs tests/*.test.mjs dashboard/tests/speechRepair.test.ts
-```
-
-```sh
-cd dashboard
-npm ci
-npm run build
-```
-
-The CI workflow runs backend unit checks and a frontend build. Optional model
-inference and live Google Flow generation are not part of those checks.
-
-## Roadmap
-
-The next priorities are a reproducible first-run experience, external-volume
-compatibility, broader platform validation, and video walkthroughs showing
-the FrameWeaver workflow. Proposed changes are welcome through
-[issues](https://github.com/phucnguyentvp1/frameweaver/issues).
-
-## License and acknowledgements
-
-FrameWeaver is distributed under the **MIT** license. It includes code adapted
-from [Flow Kit](https://github.com/crisng95/flowkit); the original copyright and
-permission notice are preserved in [LICENSE](LICENSE) for that reused code.
-FrameWeaver's additional features and changes are maintained in this repository.
-Bundled voice previews and other third-party resources have their own terms;
-read [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) before redistribution or
-commercial use of those assets.
-
-Thanks to the [Flow Kit authors and contributors](https://github.com/crisng95/flowkit)
-and the projects powering the optional integrations. FrameWeaver is a community
-project and is not affiliated with Google, Anthropic, or OpenAI.
+- `README.md` — tài liệu bạn đang đọc.
+- `docs/` — hướng dẫn sử dụng chi tiết và mẫu kịch bản (đang bổ sung).
+- Ứng dụng chạy trong Muse; repository này là nơi lưu trữ tài liệu và lịch sử kiểm thử của dự án.
